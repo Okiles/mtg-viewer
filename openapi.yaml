@@ -1,0 +1,97 @@
+# openapi.yaml
+
+openapi: 3.1.0
+info:
+  title: Card API
+  version: 1.0.0
+paths:
+  /api/card/all:
+    get:
+      summary: Fetch all cards
+      parameters:
+        - in: query
+          name: setCode
+          schema:
+            type: string
+          required: false
+          description: Filter cards by setCode
+      responses:
+        '200':
+          description: A list of cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+  /api/card/{uuid}:
+    get:
+      summary: Fetch a single card by UUID
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+          required: true
+          description: UUID of the card
+      responses:
+        '200':
+          description: A single card
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '404':
+          description: Card not found
+  /api/card/search:
+    get:
+      summary: Search cards by name
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          required: true
+          description: Search query
+        - in: query
+          name: setCode
+          schema:
+            type: string
+          required: false
+          description: Filter cards by setCode
+      responses:
+        '200':
+          description: A list of matching cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        '400':
+          description: Query too short
+  /api/card/setCodes:
+    get:
+      summary: Fetch all setCodes
+      responses:
+        '200':
+          description: A list of setCodes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  schemas:
+    Card:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        name:
+          type: string
+        setCode:
+          type: string

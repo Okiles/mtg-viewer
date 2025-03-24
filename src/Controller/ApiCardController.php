@@ -40,10 +40,10 @@ class ApiCardController extends AbstractController
 
     #[Route('/{uuid}', name: 'show_card', methods: ['GET'])]
     #[OA\Parameter(
-        name: 'uuid', 
-        description: 'UUID of the card', 
-        in: 'path', 
-        required: true, 
+        name: 'uuid',
+        description: 'UUID of the card',
+        in: 'path',
+        required: true,
         schema: new OA\Schema(type: 'string')
     )]
     #[OA\Get(description: 'Get a card by UUID')]
